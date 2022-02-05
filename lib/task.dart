@@ -16,8 +16,8 @@ bool checkedStatus = false;
 Box<dynamic> taskBox = Hive.box('task');
 Box<dynamic> chekBox = Hive.box('check');
 List<dynamic> todoList = taskBox.get('taskBox', defaultValue: []);
-List<dynamic> isDoneTask = chekBox.get('isDoneTask', defaultValue: [0]);
-Map<dynamic, dynamic> map = chekBox.get('map', defaultValue: {});
+List<dynamic> isDoneTask = chekBox.get('isDoneTask', defaultValue: []);
+
 int push = chekBox.get('push', defaultValue: 0);
 
 class _TaskPageState extends State<TaskPage> {
@@ -125,6 +125,8 @@ class _TaskPageState extends State<TaskPage> {
                                       setState(() {
                                         todoList.add(_userTodo);
                                         taskBox.put('taskBox', todoList);
+                                        isDoneTask.add(isDone);
+                                        chekBox.put('isDoneTask', isDoneTask);
                                         Navigator.of(context).pop();
                                       });
                                     },
@@ -150,12 +152,26 @@ class _TaskPageState extends State<TaskPage> {
                   right: 64,
                 ),
                 child: ListView.builder(
-                  itemCount: todoList.length,
+                  itemCount: isDoneTask.length,
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Row(
                         children: [
-                          TodoIsDone(),
+                          Checkbox(
+                              fillColor:
+                                  MaterialStateProperty.all(Colors.grey[850]),
+                              splashRadius: 0.0,
+                              value: isDoneTask[index],
+                              activeColor: Color(0xff575767),
+                              hoverColor: (push == 0)
+                                  ? Color(0xff575767)
+                                  : Colors.white,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  isDoneTask[index] = value!;
+                                  chekBox.put('isDoneTask', isDoneTask);
+                                });
+                              }),
                           Container(
                             padding: EdgeInsets.only(left: 10),
                             child: Text(
