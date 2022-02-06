@@ -105,6 +105,11 @@ class _TaskPageState extends State<TaskPage> {
                                   ),
                                 ),
                                 content: TextField(
+                                  style: TextStyle(
+                                    color: (push == 0)
+                                        ? Colors.black
+                                        : Colors.white,
+                                  ),
                                   decoration: InputDecoration(),
                                   onChanged: (String value) {
                                     _userTodo = value;
