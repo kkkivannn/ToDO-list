@@ -156,6 +156,7 @@ class _TaskPageState extends State<TaskPage> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Checkbox(
                               fillColor:
@@ -172,17 +173,42 @@ class _TaskPageState extends State<TaskPage> {
                                   chekBox.put('isDoneTask', isDoneTask);
                                 });
                               }),
-                          Container(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(
-                              todoList[index],
-                              style: TextStyle(
-                                fontFamily: 'InterMedium',
-                                fontSize: 18,
-                                color: Color(0xff575767),
+                          Flexible(
+                            flex: 7,
+                            child: Container(
+                              width: 343,
+                              padding: EdgeInsets.only(left: 10),
+                              child: Container(
+                                child: Text(
+                                  todoList[index],
+                                  style: TextStyle(
+                                      fontFamily: 'InterMedium',
+                                      fontSize: 18,
+                                      color: (push == 0)
+                                          ? Color(0xff575767)
+                                          : Color(0xffDADADA)),
+                                ),
                               ),
                             ),
                           ),
+                          Spacer(),
+                          Container(
+                            padding: EdgeInsets.only(right: 10),
+                            child: IconButton(
+                              icon: Icon(Icons.delete_rounded,
+                                  color: (push == 0)
+                                      ? Colors.black
+                                      : Colors.white),
+                              onPressed: () {
+                                setState(() {
+                                  todoList.removeAt(index);
+                                  isDoneTask.removeAt(index);
+                                  taskBox.put('taskBox', todoList);
+                                  chekBox.put('isDoneTask', isDoneTask);
+                                });
+                              },
+                            ),
+                          )
                         ],
                       ),
                     );
