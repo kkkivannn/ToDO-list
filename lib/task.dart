@@ -29,9 +29,10 @@ class _TaskPageState extends State<TaskPage> {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 64, top: 64),
+                  padding: EdgeInsets.only(top: 64),
                   child: Text(
                     "Tasks",
                     style: TextStyle(
@@ -41,7 +42,7 @@ class _TaskPageState extends State<TaskPage> {
                     ),
                   ),
                 ),
-                Spacer(),
+                // Spacer(),
                 Container(
                   padding: EdgeInsets.only(top: 64),
                   child: IconButton(
@@ -68,9 +69,9 @@ class _TaskPageState extends State<TaskPage> {
                               size: 30,
                             )),
                 ),
-                Spacer(),
+                // Spacer(),
                 Container(
-                  padding: EdgeInsets.only(top: 64, right: 64),
+                  padding: EdgeInsets.only(top: 64),
                   child: ButtonTheme(
                     height: 56,
                     minWidth: 56,
@@ -153,8 +154,6 @@ class _TaskPageState extends State<TaskPage> {
               child: Container(
                 padding: EdgeInsets.only(
                   top: 32,
-                  left: 64,
-                  right: 64,
                 ),
                 child: ListView.builder(
                   itemCount: isDoneTask.length,
